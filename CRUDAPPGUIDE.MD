@@ -178,7 +178,7 @@ router.get('/new', (req, res) => {
 * The create route is triggered through a post request to create new data
 ```
 router.post('/', (req, res) => {
-  Data.create(req.body, () => {
+  Data.create(req.body, (error, createdData) => {
     res.redirect('/');
   })
 })
