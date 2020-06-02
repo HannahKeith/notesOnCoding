@@ -20,22 +20,22 @@ Uses Express.js, MongoDB, Mongoose
 ## Basic File Structure Set-Up: 
 
 CollectionName
-----Controllers
-     ------collectionNamesController.js
-----Models
-    ------data.js
-----node_modules < -- You get this through terminal set up
-----Views
-     ---partials
-	---put repeating HTML sections in files here (header.ejs, footer.ejs. etc.)
-     ---index.ejs
-     ---edit.ejs
-     ---show.ejs
-     ---new.ejs
-     ---any other ejs routes
------package_lock.json
------package.json
------server.js
+* Controllers
+  * collectionNamesController.js
+* Models
+  * data.js
+* node_modules < -- You get this through terminal set up
+* Views
+  * partials
+	* put repeating HTML sections in files here (header.ejs, footer.ejs. etc.)
+    * index.ejs
+    * edit.ejs
+    * show.ejs
+    * new.ejs
+    * any other ejs routes
+* package_lock.json
+* package.json
+* server.js
 
 ## Individual File Set Up
 
