@@ -241,8 +241,11 @@ const dataSchema = new mongoose.Schema({
 ```
 * Then, create a new data model. This will convert the schema into a model to be store in the 'data' collection. Models are fancy constructors, and an instance of a model is called a document
 ```
-const Data = mongoose.model('Data', 'dataSchema');
+const Data = mongoose.model('Data', dataSchema);
 ```
+Error Troubleshooting
+* MissingSchemaError -- check whether you added quotes around your schema name when passing it into mongoose.model
+
 ### Now, add some initial data into your collection if you need to...
 
 1) Insert data with post requests after creating new.ejs. 
