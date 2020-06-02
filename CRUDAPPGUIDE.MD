@@ -292,7 +292,26 @@ Data.create(myData, (error, data) => {
   }
 })
 ```
-
+4) You can create a seed route with a get request. Make sure to comment out/delete so you don't give this route to a user or hacker.
+```
+data.get('/setup/seed', (req, res) => {
+  Data.create([
+    {
+      name: 'Hosie',
+      userName: 'hosie123',
+      loggedIn: true
+    },
+    {
+      name: 'Lailia',
+      userName: runnerDog,
+      loggedIn: true
+    }
+  ], 
+  (err, data) => {
+    res.direct('/')
+  })
+})
+```
 * You can use the find method to make sure this worked
 ```
 Data.find((err, data) => {
