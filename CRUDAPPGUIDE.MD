@@ -45,27 +45,32 @@ server.js ← this file connects everything
 
 Set Up:
 
-Set up variables
+Set up Dependencies and Configuration: 
 ```
 const express = require(‘express’);
 const mongoose = require(‘mongoose’);
 const methodOverride = require(‘method-override’);
-const collectionsController = require(‘./controllers/collectionNameController.js');
 const app = express();
 ```
 
-Set up middleware
+Set up Middleware: 
 ```
 //lets you use method override for PUT and DELETE methods in routes 
 app.use(methodOverride(‘_method’));
 //lets you parse your body data - req.body
 app.use(express.urlencoded({extended: false}));
-//use the controller file
-app.use(collectionsController);
 //lets you use files, such as .css, within the public directory
 app.use(express.static('public'));
 
 ```
+Set up your controllers (make sure this is under middleware):
+
+```
+const collectionsController = require(‘./controllers/collectionNameController.js');
+app.use(collectionsController);
+
+```
+
 Connect mongoose to mongodb
 ```
 mongoose.connect(
