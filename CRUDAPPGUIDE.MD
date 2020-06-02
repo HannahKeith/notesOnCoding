@@ -1,12 +1,12 @@
-#CREATING A CRUD APP GUIDE
+# CREATING A CRUD APP GUIDE
 
 
 Uses Express.js, MongoDB, Mongoose
 
 
-##Terminal Set-Up: 
+## Terminal Set-Up: 
 
-###Open 4 tabs in your terminal -- commands, mongod, mongo, node
+### Open 4 tabs in your terminal -- commands, mongod, mongo, node
   * In commands -- make sure you are in the correct file then…
   npm init (if you’d like to go through all options) or npm init -y (go with your previous set up)
     * Npm i express
@@ -17,7 +17,7 @@ Uses Express.js, MongoDB, Mongoose
   * In Mongo -- type mongo
   * In node -- type nodemon
 
-##Basic File Structure Set-Up: 
+## Basic File Structure Set-Up: 
 
 CollectionName
 ----Controllers
@@ -37,9 +37,9 @@ CollectionName
 -----package.json
 -----server.js
 
-##Individual File Set Up
+## Individual File Set Up
 
-###Home Base - server.js
+### Home Base - server.js
 
 server.js ← this file connects everything
 
@@ -84,7 +84,7 @@ app.listen(3000, () => {
 });
 ```
 
-###Controller File - collectionNameController.js :
+### Controller File - collectionNameController.js :
 
 Controllers
 ---- collectionsNameController.js  ←	your routes go in this file
@@ -109,7 +109,7 @@ At the bottom, send your router out to the server.js
 ```
 module.exports = router;
 ```
-###Date File - collectionName.js within models directory
+### Date File - collectionName.js within models directory
 
 At the top -- declare get mongoose set up
 ```
@@ -120,7 +120,7 @@ At the bottom -- export data
 module.exports = CollectionName;
 ```
 
-###All Views Files - ie views/index.ejs
+### All Views Files - ie views/index.ejs
 
 Set up all views files with HTML document structure. If you 
 Are connecting to a partial for certain elements, use : 
@@ -129,7 +129,7 @@ Are connecting to a partial for certain elements, use :
 ```
 	
 
-##Create Main Routes 
+## Create Main Routes 
 
 There are 7 RESTful routes that allow you to Create, Read, Update, and Delete data. 
 
@@ -145,7 +145,7 @@ There are 7 RESTful routes that allow you to Create, Read, Update, and Delete da
 
 All routes will go in the collectionName.js file. 
 
-###Index Route
+### Index Route
 ```
 router.get('/', (req, res) => {
   Data.find({}, (err, allData)=> {
@@ -156,7 +156,7 @@ router.get('/', (req, res) => {
 });
 ```
 
-###Show Route
+### Show Route
 ```
 router.get('/:id', (req, res) => {
   Data.findById(req.params.id, (err, foundData)=> {
@@ -167,7 +167,7 @@ router.get('/:id', (req, res) => {
 });
 ```
 
-###New Route and Create Route
+### New Route and Create Route
 
 * The new route is rendered with a get request
 ```
@@ -184,7 +184,7 @@ router.post('/', (req, res) => {
 })
 ```
 
-###Edit Route and Update Route
+### Edit Route and Update Route
 
 * The edit route is rendered with a get request
 ```
@@ -225,7 +225,7 @@ router.delete('/:id', (req, res)=> {
 
 ## Insert Initial Data: 
 
-###First, you should set up the collectionName.js file in your model directory: 
+### First, you should set up the collectionName.js file in your model directory: 
 
 * Initial set up of this file should already be complete. 
 * Add a new scheme that will define the shape of the documents in the collection. 
@@ -242,7 +242,7 @@ const dataSchema = new Schema({
 ```
 const Data = mongoose.model('Data', 'dataSchema');
 ```
-###Now, add some initial data into your collection if you need to...
+### Now, add some initial data into your collection if you need to...
 
 1) Insert data with post requests after creating new.ejs. 
 2) Create a Seed Route : 
@@ -299,7 +299,7 @@ Data.find((err, data) => {
 
 ## Finish Off Your Views Files
 
-###index.ejs
+### index.ejs
 
 If you are rendering data on this page, remember that you've passed in all the data, so you have to do some extra work to select an individual object. 
 
@@ -318,13 +318,13 @@ for loop example
   <li><%=data[i].name%></li>
 <%}%>
 ```
-###show.ejs
+### show.ejs
 This page will render one object from the data collection. You can just use the variable name you passed in through server.js to get values: 
 
 ```
 <h1><%= dataElement.name %></h1>
 ```
-###new.ejs
+### new.ejs
 This page should have a form that, on submit, complete a post request
 
 ```
@@ -335,7 +335,7 @@ This page should have a form that, on submit, complete a post request
 </form>
 ```
 
-###edit.ejs
+### edit.ejs
 This page should also have a form, but it should send a put request instead. Make sure you have method-override installed. Unlike new.ejs, it's helpful for this page's form to include a value section, which will display the current data.
 ```
 <form action="/<%=data.id%>?_method=PUT" method="POST">
@@ -345,7 +345,7 @@ This page should also have a form, but it should send a put request instead. Mak
 </form>
 ```
 
-###delete button or form
+### delete button or form
 This can go on any page, and it should execute a delete request. Check that you have method-override installed first. Example below would be for an index page.
 
 ```
