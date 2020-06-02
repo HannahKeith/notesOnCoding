@@ -103,8 +103,6 @@ Set up -
 const express = require(‘express’);
 const Data = require(‘../models/data.js’);
 const router = express.Router();
-
-Module.exports = router;
 ```
 ----- All Your Routes Will Go Here Later -------
 
@@ -233,7 +231,7 @@ router.delete('/:id', (req, res)=> {
 * Initial set up of this file should already be complete. 
 * Add a new scheme that will define the shape of the documents in the collection. 
 ```
-const dataSchema = new Schema({
+const dataSchema = new mongoose.Schema({
   name: String, 
   age: {type: Number, required: true},
   likes: {type: Number, default: 0},
