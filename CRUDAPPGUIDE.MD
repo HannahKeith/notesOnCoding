@@ -220,7 +220,7 @@ router.delete('/:id', (req, res)=> {
 * curl is a command line tool that acts like a browser, and you can use it to make requests to a website. It will take a response and write it into the terminal without formatting. **Capitalization matters in curl!**
 
   * Test POST request : curl -X POST localhost:3000/home
-  * Test POST request with data : curl -X POST -d name="kiwi" -d color="green localhost:3000/home
+  * Test POST request with data : curl -X POST -d name="kiwi" -d color="green" localhost:3000/home
   * Test DELETE request : curl -X DELETE localhost:3000/home/01
 
 ## Insert Initial Data: 
