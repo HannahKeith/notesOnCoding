@@ -58,10 +58,13 @@ Set up middleware
 ```
 //lets you use method override for PUT and DELETE methods in routes 
 app.use(methodOverride(‘_method’));
-//lets you parse your body data (?)
+//lets you parse your body data - req.body
 app.use(express.urlencoded({extended: false}));
 //use the controller file
 app.use(collectionsController);
+//lets you use files, such as .css, within the public directory
+app.use(express.static('public'));
+
 ```
 Connect mongoose to mongodb
 ```
@@ -90,7 +93,7 @@ Controllers
 ---- collectionsNameController.js  ←	your routes go in this file
 
 In your server.js, you connected with the controller file through the following code: 
-	const fruitsController = require(‘./controllers/fruits.js’);
+	const dataController = require(‘./controllers/data.js’);
 	app.use(fruitsController);
 
 In your collectionsNameController.js file -- 
@@ -98,7 +101,7 @@ In your collectionsNameController.js file --
 Set up - 
 ```
 const express = require(‘express’);
-const Fruit = require(‘../models/fruits.js’);
+const Data = require(‘../models/data.js’);
 const router = express.Router();
 
 Module.exports = router;
