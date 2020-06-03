@@ -9,7 +9,7 @@ __Prereq__: Have Your Basic CRUD App set up and npm initiated
 
 __Install in Terminal: bycrypt, dotenv, and express-session__
 
-[express-session](https://www.npmjs.com/package/express-session) is a module that creates cookies in the browser in an encrypted way in order to create user "sessions" after log-in. It allows us to store environmental variables specific to our computer. [Dotenv](https://www.npmjs.com/package/dotenv) is a module that loads environment variables from .env into a process.env property. The [process.env](https://nodejs.org/docs/latest/api/process.html#process_process_env) property returns an object containing the user environment. [Bcrypt](https://www.npmjs.com/package/bcrypt) is a library that hashes password for you, letting you safely store log in information in a database. All these packages relate to safely storing user information and creating/maintaining user sessions on your site. 
+[express-session](https://www.npmjs.com/package/express-session) is a module that creates cookies in the browser in an encrypted way in order to create user "sessions" after log-in. It allows us to store environmental variables specific to our computer. [Dotenv](https://www.npmjs.com/package/dotenv) is a module that loads environment variables from .env into a process.env property. The [process.env](https://nodejs.org/docs/latest/api/process.html#process_process_env) property returns an object containing the user environment. [Bcrypt](https://www.npmjs.com/package/bcrypt) is a library that hashes passwords for you, letting you safely store log in information in a database. All these packages relate to safely storing user information and creating/maintaining user sessions on your site. 
 
 ```
 npm install dotenv
@@ -56,16 +56,16 @@ mongoose.connect(
   () => {
     console.log('the connection with mongod is established at', mongodbURI)
   }
-)
+);
 
 //replace static environment variables with .env variable in your app.listen
 app.listen(PORT, ()=> {
   console.log('Listening on port', PORT);
-})
+});
 ```
 
 ### Add Log In and Sign Up Buttons to Your View Pages
-Create a ejs partial that will act as each ejs file's nav bar, regardless of which view directory they are in. This will include links that let the user log in or sign up. Can change this UI element depending on your web design. 
+Create a ejs partial that will act as each ejs file's nav bar. This will include links that let the user log in or sign up. Can change this UI element depending on your web design. 
 
 If you don't have one already, make a partials directory in your views directory. Create a nav.ejs file for this directory.
 
@@ -73,11 +73,11 @@ If you don't have one already, make a partials directory in your views directory
   * Partials
     * nav.ejs
 
-Your nav should have two links: one to the Sign Up page and one to the Log In page. Nothing will happen when you click on them yet, but you'll be able to test them once you get each feature set up. 
+Your nav should have at least two links: one to the Sign Up page and one to the Log In page. Nothing will happen when you click on them just now, but you'll be able to test them once you get each feature set up. 
 
 ```
-<li><a href="/users/new>Sign Up</a></li>
-<li><a href="/sessions/new>Log In</a></li>
+<li><a href="/users/new">Sign Up</a></li>
+<li><a href="/sessions/new">Log In</a></li>
 
 ```
 Now, you can include this nav bar on any of your ejs files
@@ -123,8 +123,8 @@ For users to sign up on your app, you need to flesh out the controller, model, a
 
 __The users model__ holds login information on each user. Set up your schema, connect to mongoose, and export that user data to the controller in the model file - users.js
 ```
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
   username: {
@@ -140,9 +140,9 @@ const userSchema = new Schema({
     type: String, 
     required: true
   }
-})
+});
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
 ```
@@ -161,14 +161,16 @@ const User = require('../models/users.js');
 //NEW
 users.get('/new', (req, res) => {
   res.render('users/new.ejs');
-})
+});
+
 //CREATE
 users.post('/', (req, res) => {
   req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
   User.create(req.body, (err, createdUser) => {
     res.redirect('/');
   })
-})
+});
+
 //export users 
 module.exports = users;
 ```
@@ -177,7 +179,7 @@ The Create route above not only adds data from a form into a database, it encryp
 
 __Set up new.ejs file within view/users:__
 
-This new.ejs file will be a form with the same action/post set up as the new.ejs file in you're original new.ejs file. This should render as a sign up page for users to enter their username, password, etc.
+This new.ejs file will be a form with the same action/post set up as the new.ejs file in your original new.ejs file. This should render as a sign up page for users to enter their username, password, etc.
 
 ```
 <form action="/users" method="POST">
@@ -186,7 +188,7 @@ This new.ejs file will be a form with the same action/post set up as the new.ejs
 
 ### Set up site for users to log in: 
 
-For users to log in to your app, you need to flesh out the controller and view files for user. You don't currently need a model because you're not storing session data yet. Every time a user logs in, it will create a session for them. When user logs out, it will delete their session. 
+For users to log in to your app, you need to flesh out the controller and view files for sessions. You don't currently need a model because you're not storing session data yet. Every time a user logs in, it will create a session for them. When a user logs out, it will delete their session. 
 
 __Set up sessions_controller.js file:__
 
@@ -206,7 +208,7 @@ sessions.get('/new', (req, res) => {
   res.render('sessions/new.ejs', {
     currentUser: req.session.currentUser
   }
-})
+});
 
 //CREATE
 //checks that password and username match document in user database
@@ -214,18 +216,21 @@ sessions.post('/', (req, res) => {
   User.findOne({username: req.body.username}, (err, foundUser) => {
     if (err) {
       console.log(err)
+      //fix to render error page
       res.send('Our database ran into a problem, Our fault');
     //still testing if this works - should compare username and password
     } else if(!foundUser || !bcrypt.compareSync(req.body.password, foundUser.password)) {
+      //fix to render error page
       res.send('Sorry, your username or password is incorrect);
     } else if(bcrypt.compareSync(req.body.password, foundUser.password)) {
       res.session.currentUser = foundUser;
       res.redirect('/originalCollectionName');
     } else {
+      //delete if works
       res.send('combining the user and password authentication did not work, refactor')
     }
   })
-})
+});
 
 //DELETE
 //triggered on log out
@@ -233,7 +238,7 @@ sessions.delete('/', (req, res) => {
   req.sessions.destroy(() => {
     res.redirect('/')
   })
-})
+});
 
 //export it!
 module.exports = sessions;
@@ -248,7 +253,7 @@ The new.ejs for sessions should render the log in page. This form is the same as
 ### Make Things Change When Your User Logs In
 Now, a user can log in and... nothing changes. That defeats the purpose of a log in feature, so the next step is changing our app depending on whether a user has started a session or not. 
 
-We can pass on the information that a user signed in or logged out to our other files because we wrote 'module.exports = sessions' at the end of our sessions_controller.js file. Within this file, we set up a cookie with the key/value of the currentUser set to foundUser upon successful log in. 
+We can pass on the information that a user signed in or logged out to our other files because, in our sessions_controller.js file, we set up a cookie with the key/value of the currentUser set to foundUser upon successful log in. 
 ```
 //snippet of sessions post route
 if (bcrypt.compareSync(req.body.password, foundUser.password)) {
@@ -261,7 +266,7 @@ __Pass currentUser onto the other routes:__
 
 ```
 //value to pass in
-currentUser:req.session.currentUser
+currentUser: req.session.currentUser;
 
 //example of how to pass value in
 data.get('/', (req, res) => {
@@ -269,12 +274,12 @@ data.get('/', (req, res) => {
     res.render('data/index.ejs', {
       data: allData,
       currentUser: req.session.currentUser
-  });
   })
-})
+  })
+});
 ```
 
-Now, we can use this info to give the user to visual feedback that they have logged in successfully. Currently, we have a nav bar that just displays "Sign Up" and "Log In" all the time. You can add an if statement in your nav.ejs partial to let the user know they signed in successfully and creates a new "sign out" button that will trigger the session delete route.
+Now, we can use this info to give the user visual feedback that they have logged in successfully. Currently, we have a nav bar that just displays "Sign Up" and "Log In" all the time. You can add an if statement in your nav.ejs partial to let the user know they signed in successfully and create a new "sign out" button that will trigger the session delete route.
 
 __Change nav upon successful user log in__
 
@@ -293,8 +298,7 @@ __Change nav upon successful user log in__
 </ul>
 ```
 
-You can also block out whole sections of your website until your user has sent in by 
-writing custom middleware that will authenticate whether the user logged in. [Middleware](https://expressjs.com/en/guide/using-middleware.html) functions are the foundation of Express. They have access to three things: req, res, and the next middleware function in the application (next). Middleware can execute code and decide whether to call the next middleware function in the stack with next().
+You can also block out whole sections of your website until your user has signed in by writing custom middleware that will authenticate whether the user logged in. [Middleware](https://expressjs.com/en/guide/using-middleware.html) functions are the foundation of Express. They have access to three things: req, res, and the next middleware function in the application (next). Middleware can execute code and decide whether to call the next middleware function in the stack with next().
 
 __Write an authentication middleware to check whether user is logged in before allowing access to page:__
 ```
@@ -311,7 +315,7 @@ const isAuthenticated = (req, res, next) => {
 //if user is not logged in, they are redirected to sign up page
 data.get('/new', isAuthenticated, (req, res) => {
   res.render(
-    'fruits/new.ejs, {
+    'data/new.ejs, {
       currentUser: req.session.currentUser
     }
   )
