@@ -1,7 +1,7 @@
-# CREATING A CRUD APP GUIDE
+# CREATING A BASIC CRUD APP GUIDE
+Using: Javascript (Express.js, Node.js), MongoDB
 
-Uses Express.js, MongoDB, Mongoose
-
+Basic Node.js packages: ejs, express, mongoose, method-override
 
 ## Terminal Set-Up: 
 
@@ -66,7 +66,7 @@ Set up your controllers (make sure this is under middleware):
 
 ```
 const collectionsController = require(‘./controllers/collectionNameController.js');
-app.use(collectionsController);
+app.use('/collectionName', collectionsController);
 
 ```
 
@@ -135,8 +135,10 @@ Are connecting to a partial for certain elements, use :
 	
 
 ## Create Main Routes 
-
+s
 There are 7 RESTful routes that allow you to Create, Read, Update, and Delete data. 
+
+[More about MongoDB CRUD Operations](https://docs.mongodb.com/manual/crud/)
 
 | # | Action  | URL          | HTTP Verb | Mongoose                                 |
 |---|:-------:|:------------:|:---------:|:----------------------------------------:|
@@ -230,10 +232,14 @@ router.delete('/:id', (req, res)=> {
 
 ## Insert Initial Data: 
 
-### First, you should set up the collectionName.js file in your model directory: 
+### Set up the collectionName.js file in your model directory: 
 
-* Initial set up of this file should already be complete. 
-* Add a new scheme that will define the shape of the documents in the collection. 
+Mongoose was required in your model file setup, and it models MongoDB objects for Node apps, letting you manage data models in your code editor rather than within the actual database. [Helpful e-book about Mongoose and Data Modeling](https://livebook.manning.com/book/getting-mean-with-mongo-express-angular-and-node-second-edition/chapter-5/103).
+
+
+You are working with the data model in this file. MongoDB calls each entry in a database a __document__ and refers to a group of documents as a __collection__. Mongoose let's you define how each document will be structured through a __schema__. 
+
+__Create a new scheme__ that will define the shape of the documents in your collection. 
 ```
 const dataSchema = new mongoose.Schema({
   name: String, 
@@ -243,14 +249,15 @@ const dataSchema = new mongoose.Schema({
   timestamps: true
 })
 ```
-* Then, create a new data model. This will convert the schema into a model to be store in the 'data' collection. Models are fancy constructors, and an instance of a model is called a document
+__Now, create a model__. A model is like a fancy constructor that compiles the schema. It acts as a go between in Mongoose that all data goes through. 
+
 ```
 const Data = mongoose.model('Data', dataSchema);
 ```
-Error Troubleshooting
+__Error Troubleshooting:__
 * MissingSchemaError -- check whether you added quotes around your schema name when passing it into mongoose.model
 
-### Now, add some initial data into your collection if you need to...
+### Add initial data into your collection if you need to...
 
 1) Insert data with post requests after creating new.ejs. 
 2) Create a Seed Route : 
