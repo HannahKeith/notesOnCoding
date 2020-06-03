@@ -1,6 +1,5 @@
 # CREATING A CRUD APP GUIDE
 
-
 Uses Express.js, MongoDB, Mongoose
 
 
