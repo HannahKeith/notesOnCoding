@@ -74,7 +74,7 @@ Connect mongoose to mongodb
 ```
 mongoose.connect(
 ‘mongodb://localhost:27017/dbName’, {
-  useNewURLParser: true,
+  useNewUrlParser: true,
   useUnifiedTopology: true,
   useFindAndModify: false
 },
