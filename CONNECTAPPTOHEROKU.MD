@@ -26,7 +26,8 @@ Go to your package.json file in your code editor and make sure "engines" matches
 }
 ```
 
-##Figure out MongoDB Atlas: 
+## Figure out MongoDB Atlas: 
+
 [MongoDB Start Up Docs](https://docs.atlas.mongodb.com/getting-started/)
 
 > MongoDB Atlas is a fully-managed cloud database developed by the same people that build MongoDB. Atlas handles all the complexity of deploying, managing, and healing your deployments on the cloud service provider of your choice (AWS, Azure, and GCP). - MongoDB Atlas Docs
@@ -69,12 +70,12 @@ const MONGODB_URI = process.env.MONGODB_URI;
 
 [Heroku download site](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) 
 
-After you've downloaded heroku, double check that the install worked in your terminal
+After you've downloaded Heroku, double check that the install worked in your terminal
 ```
 heroku --version
 //you should see the heroku version in the output
 ```
-Login to Heroku, then create your app using a unique name. If you're successful, you'll see a fetch and push path for heroku as well when you run 'git remote -v'
+Log in to Heroku, then create your app using a unique name. If you're successful, you'll see a fetch and push path for heroku as well when you run 'git remote -v'
 
 ```
 heroku login
@@ -94,7 +95,7 @@ Now, go back to your account on [Heroku](https://dashboard.heroku.com/apps). You
   * This is like your replacement .env file for the deployed version of your app. 
 * Set your key as "MONGODB_URI" and your value as the configuration string that you set in the .env file within your local repo.
 
-Go back to your terminal. You can now push your code to heroku! The push to heroku will take a minute.
+Go back to your terminal. You can now push your code to Heroku! The push to Heroku will take a minute.
 
 ```
 git push heroku master
