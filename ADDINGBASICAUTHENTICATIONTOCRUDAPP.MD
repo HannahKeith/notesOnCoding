@@ -1,4 +1,4 @@
-a# ADDING BASIC AUTHENTICATION TO YOUR CRUD APP
+# ADDING BASIC AUTHENTICATION TO YOUR CRUD APP
 __Uses__: JavaScript (Express.js, Node.js), MongoDB
 
 __Node.js packages__: express, ejs, mongoose, method-override, dotenv, bcrypt, express-session
