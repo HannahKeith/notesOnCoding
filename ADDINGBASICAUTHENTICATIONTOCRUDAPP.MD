@@ -1,4 +1,4 @@
-# ADDING BASIC AUTHENTICATION TO YOUR CRUD APP
+a# ADDING BASIC AUTHENTICATION TO YOUR CRUD APP
 __Uses__: JavaScript (Express.js, Node.js), MongoDB
 
 __Node.js packages__: express, ejs, mongoose, method-override, dotenv, bcrypt, express-session
@@ -62,6 +62,27 @@ mongoose.connect(
 app.listen(PORT, ()=> {
   console.log('Listening on port', PORT);
 })
+```
+
+### Add Log In and Sign Up Buttons to Your View Pages
+Create a ejs partial that will act as each ejs file's nav bar, regardless of which view directory they are in. This will include links that let the user log in or sign up. Can change this UI element depending on your web design. 
+
+If you don't have one already, make a partials directory in your views directory. Create a nav.ejs file for this directory.
+
+* Views
+  * Partials
+    * nav.ejs
+
+Your nav should have two links: one to the Sign Up page and one to the Log In page. Nothing will happen when you click on them yet, but you'll be able to test them once you get each feature set up. 
+
+```
+<li><a href="/users/new>Sign Up</a></li>
+<li><a href="/sessions/new>Log In</a></li>
+
+```
+Now, you can include this nav bar on any of your ejs files
+```
+<%- include('../partials/nav.ejs')>
 ```
 
 ### Create Users and Sessions in the MVC Structure
@@ -224,3 +245,75 @@ The new.ejs for sessions should render the log in page. This form is the same as
 </form>
 ```
 
+### Make Things Change When Your User Logs In
+Now, a user can log in and... nothing changes. That defeats the purpose of a log in feature, so the next step is changing our app depending on whether a user has started a session or not. 
+
+We can pass on the information that a user signed in or logged out to our other files because we wrote 'module.exports = sessions' at the end of our sessions_controller.js file. Within this file, we set up a cookie with the key/value of the currentUser set to foundUser upon successful log in. 
+```
+//snippet of sessions post route
+if (bcrypt.compareSync(req.body.password, foundUser.password)) {
+  //set up cookie with key/value of currentUser set to foundUser
+  req.session.currentUser = foundUser;
+  res.redirect('/originalCollectionName')
+```
+
+__Pass currentUser onto the other routes:__
+
+```
+//value to pass in
+currentUser:req.session.currentUser
+
+//example of how to pass value in
+data.get('/', (req, res) => {
+  Data.find({}, (err, allData) => {
+    res.render('data/index.ejs', {
+      data: allData,
+      currentUser: req.session.currentUser
+  });
+  })
+})
+```
+
+Now, we can use this info to give the user to visual feedback that they have logged in successfully. Currently, we have a nav bar that just displays "Sign Up" and "Log In" all the time. You can add an if statement in your nav.ejs partial to let the user know they signed in successfully and creates a new "sign out" button that will trigger the session delete route.
+
+__Change nav upon successful user log in__
+
+```
+<% if(currentUser) {%>
+<li>Welcome <%= currentUser.name%></li>
+<li>
+  <form action="/sessions?_method=DELETE" method="POST">
+    <input type="submit" value="Log Out">
+  </form>
+</li>
+  <% } else { %>
+  <li><a href="/users/new">Sign Up</a></li>
+  <li><a href="/sessions/new">Log In</a></li>
+  <% } %>
+</ul>
+```
+
+You can also block out whole sections of your website until your user has sent in by 
+writing custom middleware that will authenticate whether the user logged in. [Middleware](https://expressjs.com/en/guide/using-middleware.html) functions are the foundation of Express. They have access to three things: req, res, and the next middleware function in the application (next). Middleware can execute code and decide whether to call the next middleware function in the stack with next().
+
+__Write an authentication middleware to check whether user is logged in before allowing access to page:__
+```
+//middleware
+const isAuthenticated = (req, res, next) => {
+  if(req.session.currentUser) {
+    return next();
+  } else {
+    res.redirect('/sessions/new')
+  }
+}
+
+//how we insert the middleware 
+//if user is not logged in, they are redirected to sign up page
+data.get('/new', isAuthenticated, (req, res) => {
+  res.render(
+    'fruits/new.ejs, {
+      currentUser: req.session.currentUser
+    }
+  )
+})
+```
