@@ -1,5 +1,7 @@
 # CONNECT YOUR APP TO HEROKU 
-Using: Express, Node, MongoDB, MongoDB Atlas, Heroku
+Using: JavaScript (Express.js, Node.js), MongoDB / MongoDB Atlas, Heroku
+
+Basic Node.js packages: ejs, express, mongoose, method-override, dotenv 
 
 ## Make Your Repo
 [Create a new repo on Github and clone to your local repo](https://git-scm.com/book/en/v2/Git-Basics-Getting-a-Git-Repository), make sure to include a [.gitignore](https://git-scm.com/docs/gitignore) file that will hide your .env file. If you don't hide your .env file and it's pushed to github, people can steal your password. 
