@@ -3,7 +3,25 @@ Using: Javascript (Express.js, Node.js), MongoDB
 
 Basic Node.js packages: ejs, express, mongoose, method-override
 
-## Terminal Set-Up: 
+## Index: 
+1) [Set Up Your Terminal](#terminal-set-up)
+2) [File Structure](#basic-file-structure-set-up)
+3) [Individual File Set Up](#individual-file-set-up)
+  * [Server.js](#server-file)
+  * [Controller Files](#controller-file)
+  * [Data Files](#data-file)
+  * [Views Files](#views-files)
+4) [Routes](#create-main-routes)
+  * [Index Route](#index-route)
+  * [Show Route](#show-route)
+  * [New / Create Route](#new-route-and-create-route)
+  * [Edit / Update Route](#edit-route-and-update-route)
+  * [Destroy Route](#destroy-route)
+5) [Curl Testing](#test-with-curl-commands)
+6) [Insert Data](#insert-initial-data)
+7) [Finish Up Views Files](#finish-off-your-views-files)
+
+## Terminal Set-Up
 
 ### Open 4 tabs in your terminal -- commands, mongod, mongo, node
   * In commands -- make sure you are in the correct file then…
@@ -16,7 +34,7 @@ Basic Node.js packages: ejs, express, mongoose, method-override
   * In Mongo -- type mongo
   * In node -- type nodemon
 
-## Basic File Structure Set-Up: 
+## Basic File Structure Set-Up
 
 CollectionName
 * Controllers
@@ -38,7 +56,7 @@ CollectionName
 
 ## Individual File Set Up
 
-### Home Base - server.js
+### Server File
 
 server.js ← this file connects everything
 
@@ -91,7 +109,7 @@ app.listen(3000, () => {
 });
 ```
 
-### Controller File - collectionNameController.js :
+### Controller File
 
 Controllers
 ---- collectionsNameController.js  ←	your routes go in this file
@@ -114,7 +132,7 @@ At the bottom, send your router out to the server.js
 ```
 module.exports = router;
 ```
-### Date File - collectionName.js within models directory
+### Data File 
 
 At the top -- declare get mongoose set up
 ```
@@ -125,7 +143,7 @@ At the bottom -- export data
 module.exports = CollectionName;
 ```
 
-### All Views Files - ie views/index.ejs
+### Views Files 
 
 Set up all views files with HTML document structure. If you 
 Are connecting to a partial for certain elements, use : 
@@ -222,7 +240,7 @@ router.delete('/:id', (req, res)=> {
   });
 });
 ```
-## You can test certain routes with curl commands in the terminal
+## Test With Curl Commands
 
 * curl is a command line tool that acts like a browser, and you can use it to make requests to a website. It will take a response and write it into the terminal without formatting. **Capitalization matters in curl!**
 
