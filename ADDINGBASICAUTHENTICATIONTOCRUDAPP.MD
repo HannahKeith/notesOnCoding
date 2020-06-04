@@ -221,7 +221,7 @@ sessions.post('/', (req, res) => {
     //still testing if this works - should compare username and password
     } else if(!foundUser || !bcrypt.compareSync(req.body.password, foundUser.password)) {
       //fix to render error page
-      res.send('Sorry, your username or password is incorrect);
+      res.send('Sorry, your username or password is incorrect');
     } else if(bcrypt.compareSync(req.body.password, foundUser.password)) {
       res.session.currentUser = foundUser;
       res.redirect('/originalCollectionName');
