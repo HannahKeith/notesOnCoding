@@ -150,7 +150,7 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = users;
+module.exports = User;
 ```
 Because you have a new model, you need a new controller file to interact with and encrypt the data in that model. This will be your users_controller.js file. 
 
@@ -178,7 +178,7 @@ users.post('/', (req, res) => {
 });
 
 //export User 
-module.exports = User;
+module.exports = users;
 ```
 
 The Create route above not only adds data from a form into a database, it encrypts it using the bcrypt library we installed. The create route in the example above pulls the 'password' input from the form and uses the method [_bcrypt.hashSync()_](https://www.abeautifulsite.net/hashing-passwords-with-nodejs-and-bcrypt). This hashes the password using a synchronous approach, meaning that it stops the app from handling any other requests until its finished hashing. 
