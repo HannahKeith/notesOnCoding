@@ -63,6 +63,12 @@ app.listen(PORT, ()=> {
   console.log('Listening on port', PORT);
 });
 ```
+Make sure to also connect with the new controllers that you're going to create for users and session: 
+```
+//example: 
+const userController = require('./controllers/users_controller.js');
+app.use('/user', userController);
+```
 
 ### Add Log In and Sign Up Buttons to Your View Pages
 Create a ejs partial that will act as each ejs file's nav bar. This will include links that let the user log in or sign up. Can change this UI element depending on your web design. 
