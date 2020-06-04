@@ -180,7 +180,7 @@ router.get('/:id', (req, res) => {
 ```
 router.get('/new', (req, res) => {
   res.render('new.ejs);
-}
+});
 ```
 * The create route is triggered through a post request to create new data
 ```
