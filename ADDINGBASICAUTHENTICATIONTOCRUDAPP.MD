@@ -150,7 +150,7 @@ const userSchema = new Schema({
 
 const User = mongoose.model('User', userSchema);
 
-module.exports = User;
+module.exports = users;
 ```
 Because you have a new model, you need a new controller file to interact with and encrypt the data in that model. This will be your users_controller.js file. 
 
