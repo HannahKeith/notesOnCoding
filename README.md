@@ -8,6 +8,6 @@ Organized Notes of Basic Programming Projects from Concepts Learned in General A
 2) How to Add Authentication to CRUD App
    
    JavaScript, Express.js, Node.js (bcrypt, express-session), MongoDB, Mongoose
-3) How to Deply CRUD APP to Heroku
+3) How to Deploy CRUD APP to Heroku
     
    JavaScript, Express,js, Node.js, MongoDB, MongoDB Atlas, Mongoose
