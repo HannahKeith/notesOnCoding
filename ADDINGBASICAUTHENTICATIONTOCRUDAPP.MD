@@ -39,7 +39,7 @@ const PORT = process.env.PORT;
 const mongodbURI = process.env.MONGODBURI;
 
 //New Middleware to include
-app.use(session({
+app.use(sessions({
   secret: process.env.SECRET,
   resave: false,
   saveUninitialized: false
