@@ -229,7 +229,7 @@ sessions.post('/', (req, res) => {
       //fix to render error page
       res.send('Sorry, your username or password is incorrect');
     } else if(bcrypt.compareSync(req.body.password, foundUser.password)) {
-      res.session.currentUser = foundUser;
+      req.session.currentUser = foundUser;
       res.redirect('/originalCollectionName');
     } else {
       //delete if works
