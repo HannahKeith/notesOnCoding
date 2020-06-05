@@ -240,8 +240,9 @@ sessions.post('/', (req, res) => {
 
 //DELETE
 //triggered on log out
+//if you hit an error, doublecheck that you wrote 'session', not 'sessions'
 sessions.delete('/', (req, res) => {
-  req.sessions.destroy(() => {
+  req.session.destroy(() => {
     res.redirect('/')
   })
 });
