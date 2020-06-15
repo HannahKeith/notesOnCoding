@@ -154,7 +154,7 @@ Are connecting to a partial for certain elements, use :
 ```
 	
 
-## Create Main Routes 
+## Create Main Routes  Angular: public/js/app.js //inside functions
 s
 There are 7 RESTful routes that allow you to Create, Read, Update, and Delete data. 
 
