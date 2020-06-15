@@ -132,11 +132,13 @@ At the bottom, send your router out to the server.js
 ```
 module.exports = router;
 ```
-### Data File 
+### Data File// this is the Schema inside models folder 
 
 At the top -- declare get mongoose set up
 ```
 const mongoose = require(‘mongoose’);
+
+Schema goes in the middle
 ```
 At the bottom -- export data
 ```
